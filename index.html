@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purushottam Shah | Project Management Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load React, ReactDOM, and Babel -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Load Lucide Icons Globally (to ensure no 'require is not defined' errors) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Define the Inter font for a professional look */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb; /* Light gray background */
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <!-- React application will be mounted here -->
+    </div>
+
+    <!-- The React application code, using Babel to process JSX -->
+    <script type="text/babel">
+        // --- START OF REACT APPLICATION ---
+
+        // Access React and hooks from the global scope (since we are using <script> tags, not Node imports)
+        const { useState, useEffect } = React;
+
+        // --- Custom Icon Component (Replaces lucide-react imports that cause errors in this setup) ---
+        const Icon = ({ name, size = 24, className = 'text-current' }) => {
+            const [svgHtml, setSvgHtml] = useState(null);
+
+            useEffect(() => {
+                // Use the globally loaded 'lucide' object to render the SVG HTML
+                if (window.lucide && window.lucide.icons[name]) {
+                    const icon = window.lucide.createIcons({
+                        icons: { [name]: window.lucide.icons[name] },
+                        attrs: { width: size, height: size, class: className }
+                    });
+                    setSvgHtml(icon[name].toHTML());
+                }
+            }, [name, size, className]);
+
+            // Render the fetched SVG using dangerouslySetInnerHTML
+            return svgHtml 
+                ? <span dangerouslySetInnerHTML={{ __html: svgHtml }} /> 
+                : <span style={{ width: size, height: size, display: 'inline-block' }} className={className}></span>; // Placeholder
+        };
+
+        // --- DATA STRUCTURE ---
+        const PORTFOLIO_DATA = {
+            name: "Purushottam Shah",
+            title: "Digital Technology & Transformation Enthusiast | Project Management Professional",
+            summary: "An experienced Project Manager (5+ years) with a demonstrated history in engineering and IT. I leverage expertise in **Dynamics CRM/ERP, Project Management, and Agile/Waterfall methodologies** to drive successful business transformation projects, ensuring on-time, within-budget delivery, and effective stakeholder communication.",
+            location: "Dianella, Western Australia, Australia",
+            contact: {
+                email: "pspurushottamshah@gmail.com",
+                linkedin: "https://www.linkedin.com/in/purushottam-shah-73b06581",
+                github: "https://github.com/yourprofile"
+            },
+            highlights: [
+                {
+                    icon: <Icon name="zap" size={24} className="text-white"/>,
+                    title: "Large-Scale Business Transformation",
+                    detail: "Delivered a business transformation project (Dynamics CRM and ERP) with a budget of **over £1 million** in one year, leading a cross-functional team of 38 developers, QAs, consultants, and BAs."
+                },
+                {
+                    icon: <Icon name="trophy" size={24} className="text-white"/>,
+                    title: "High-Volume Project Success",
+                    detail: "Successfully delivered **over 15 business transformation projects** in three years, averaging a budget of £300,000 per project with an average team size of 15 members."
+                },
+            ],
+            skills: [
+                { name: "Dynamics CRM / ERP", level: 95 },
+                { name: "Project Management (Agile/Waterfall)", level: 98 },
+                { name: "Stakeholder Management", level: 95 },
+                { name: "Budgeting & Financial Oversight", level: 90 },
+                { name: "Vendor Management & Contracting", level: 92 },
+                { name: "Administration & PMO", level: 90 },
+            ],
+            experience: [
+                {
+                    title: "Technical Project Manager",
+                    company: "Intuji",
+                    duration: "September 2025 - Present (1 month)",
+                    location: "Nepal",
+                    points: [
+                        "Successfully managed the entire lifecycle of website, web, and mobile app projects, ensuring delivery within scope, time, and budget.",
+                        "Led and guided cross-functional teams of over 15 members, fostering high morale and collaboration.",
+                        "Developed comprehensive project plans, incorporating Agile and Waterfall methodologies.",
+                    ]
+                },
+                {
+                    title: "Project Manager - PMO",
+                    company: "Frost Digital Ventures",
+                    duration: "April 2023 - July 2023 (4 months)",
+                    location: "Nepal",
+                    points: [
+                        "Oversaw AI-focused R&D projects, incorporating innovative technologies and ensuring projects met technical requirements.",
+                        "Managed relationships with external vendors, negotiating contracts and mitigating risks.",
+                        "Demonstrated expertise in project budget management, tracking expenditures, and optimizing resource allocation."
+                    ]
+                },
+                {
+                    title: "Project Manager",
+                    company: "Dogma Group",
+                    duration: "July 2020 - April 2023 (2 years 10 months)",
+                    location: "Kathmandu, Nepal",
+                    points: [
+                        "Adhered to PM best practices, ensuring projects were completed on time and within budget, including seamless global collaboration with UK-based teams.",
+                        "Spearheaded RAID Log Management for efficient risk mitigation.",
+                        "Successfully managed multiple client projects concurrently, demonstrating adeptness in prioritization and delegation."
+                    ]
+                },
+                {
+                    title: "Project Engineer",
+                    company: "Thee GO",
+                    duration: "May 2016 - April 2017 (1 year)",
+                    location: "Kathmandu, Nepal",
+                    points: [
+                        "Served as Project Officer, primarily responsible for the design and implementation of Solar PV module systems for residential and industrial sectors.",
+                        "Managed the deployment of Security and surveillance devices including CCTV and Biometric Attendance Systems.",
+                        "Established and executed preventive maintenance schedules (daily, weekly, monthly, yearly) for utility, electrical, and production line machinery.",
+                        "Successfully reduced machine downtime, directly contributing to increased line efficiency."
+                    ]
+                },
+            ],
+            education: [
+                {
+                    degree: "Masters of Business Administration - Project Management",
+                    institution: "Kaplan Business School",
+                    years: "July 2024 - August 2025 (Expected)"
+                },
+                {
+                    degree: "Graduate Certificate in Project Management",
+                    institution: "Western Sydney University",
+                    years: "July 2023 - June 2024"
+                },
+                {
+                    degree: "Master of Business Administration - MBA",
+                    institution: "Ace Institute of Management",
+                    years: "2019 - 2021"
+                },
+            ],
+            case_studies: [
+                {
+                    id: 1,
+                    title: "Enterprise-Wide CRM Implementation & Digital Transformation",
+                    client_focus: "Global Services Firm (1000+ Employees)",
+                    budget: "£1.1 Million",
+                    duration: "12 Months (Fixed Scope)",
+                    challenge: "Legacy CRM system hindered sales pipeline visibility, data was siloed, and customer service lacked automation.",
+                    solution: "Led a 38-person cross-functional team to implement Dynamics CRM/ERP, customizing modules for sales, finance, and service. Established a rigorous Agile sprint cadence (Scrum) for development and migration.",
+                    outcome: "Achieved **100% on-time delivery**; resulted in a **25% reduction in manual data entry** and a **15% increase in lead conversion** within the first quarter post-launch."
+                },
+                {
+                    id: 2,
+                    title: "AI-Focused R&D Project Management",
+                    client_focus: "Digital Ventures Incubator",
+                    budget: "£300,000",
+                    duration: "4 Months (Pilot Phase)",
+                    challenge: "Managing uncertainty and rapid scoping changes inherent in early-stage AI research projects, requiring flexibility and strict budget control.",
+                    solution: "Implemented a modified Waterfall structure for hardware procurement and a highly flexible Kanban approach for software development. Standardized vendor contracts to accelerate resource acquisition.",
+                    outcome: "Successfully delivered **three initial viable prototypes** within budget. Established a scalable PMO framework for future R&D initiatives."
+                },
+                {
+                    id: 3,
+                    title: "Solar PV, CCTV & Biometric System Deployment",
+                    client_focus: "Industrial and Residential Clients",
+                    budget: "Undisclosed (Multiple Projects)",
+                    duration: "Ongoing Maintenance & Deployment (1 year)",
+                    challenge: "Ensuring energy resilience and modern security coverage across diverse client locations, coupled with rigorous maintenance of utility and production machinery to avoid downtime.",
+                    solution: "Responsible for end-to-end design and installation of Solar PV module systems. Introduced comprehensive preventive maintenance logs for electrical and production equipment, shifting from reactive to proactive maintenance.",
+                    outcome: "Successfully managed multiple technical deployments on time. Significantly increased **line efficiency** by establishing a structured maintenance schedule for utility, electrical, and production machinery."
+                },
+            ]
+        };
+
+        // --- COMPONENTS ---
+
+        const SectionTitle = ({ icon, title }) => (
+            <h2 className="flex items-center text-2xl md:text-3xl font-extrabold text-blue-800 mb-6 border-b-4 border-blue-200 pb-2">
+                {icon} 
+                {title}
+            </h2>
+        );
+
+        const ExperienceCard = ({ experience }) => (
+            <div className="mb-8 p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-t-4 border-blue-500">
+                <h3 className="text-xl font-bold text-gray-900">{experience.title}</h3>
+                <p className="text-blue-600 font-semibold mb-1">{experience.company}</p>
+                <p className="text-sm text-gray-500 mb-3">{experience.duration} | {experience.location}</p>
+                <ul className="list-disc ml-5 space-y-2 text-gray-700">
+                    {experience.points.map((point, index) => (
+                        <li key={index} className="pl-1" dangerouslySetInnerHTML={{ __html: point }}></li>
+                    ))}
+                </ul>
+            </div>
+        );
+
+        const SkillBar = ({ name, level }) => {
+            const [animatedWidth, setAnimatedWidth] = useState('0%');
+
+            useEffect(() => {
+                const timer = setTimeout(() => {
+                    setAnimatedWidth(`${level}%`);
+                }, 100);
+                return () => clearTimeout(timer);
+            }, [level]);
+
+            return (
+                <div className="mb-4">
+                    <div className="flex justify-between items-center mb-1">
+                        <span className="text-sm font-semibold text-gray-700">{name}</span>
+                        <span className="text-xs font-mono text-blue-600">{level}%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2.5">
+                        <div 
+                            className="h-2.5 rounded-full bg-blue-500 transition-all duration-1000 ease-out shadow-md"
+                            style={{ width: animatedWidth }}
+                            title={`Expertise level: ${level}%`}
+                        ></div>
+                    </div>
+                </div>
+            );
+        };
+
+        const HighlightCard = ({ icon, title, detail, onClick }) => (
+            <button 
+                onClick={onClick}
+                className="text-left p-6 bg-blue-100 rounded-xl border-b-4 border-blue-600 flex items-start space-x-4 shadow-md transition-all duration-300 hover:scale-[1.02] hover:bg-blue-200 focus:outline-none focus:ring-4 focus:ring-blue-300"
+            >
+                <div className="p-3 rounded-full bg-blue-600 shadow-lg flex-shrink-0">
+                    {icon}
+                </div>
+                <div>
+                    <h3 className="text-lg font-bold text-blue-800 mb-1">{title}</h3>
+                    <p className="text-gray-700 text-sm">{detail}</p>
+                    <span className="text-xs text-blue-700 font-semibold mt-2 block">Click for Details →</span>
+                </div>
+            </button>
+        );
+
+        // --- NAVIGATION & PAGES ---
+
+        const ContactPage = ({ setPage }) => {
+            const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+            const [status, setStatus] = useState(''); // 'idle', 'sending', 'success', 'error'
+
+            const handleChange = (e) => {
+                setFormData({ ...formData, [e.target.name]: e.target.value });
+            };
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                setStatus('sending');
+
+                // This constructs the mailto link with the form data
+                const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage: ${formData.message}`;
+                const mailtoLink = `mailto:${PORTFOLIO_DATA.contact.email}?subject=Inquiry from Portfolio - ${formData.name}&body=${encodeURIComponent(body)}`;
+
+                setTimeout(() => {
+                    // This line attempts to open the user's local email client with the pre-filled message.
+                    window.open(mailtoLink, '_self'); 
+                    
+                    setStatus('success');
+                    // Clear form after showing success
+                    setFormData({ name: '', email: '', message: '' });
+                }, 1500);
+            };
+
+            return (
+                <div className="max-w-xl mx-auto p-8 bg-white rounded-2xl shadow-2xl border-t-8 border-blue-600">
+                    <button 
+                        onClick={() => setPage('home')}
+                        className="flex items-center text-blue-600 hover:text-blue-800 transition duration-150 mb-6 font-semibold"
+                    >
+                        <Icon name="corner-left-up" size={20} className="mr-2"/> Back to Portfolio
+                    </button>
+                    <SectionTitle icon={<Icon name="mail" />} title="Get in Touch" />
+                    <p className="mb-6 text-gray-700">
+                        I'm available for full-time roles, part-time consulting, and freelance project opportunities. Please use the form below to initiate contact.
+                    </p>
+
+                    <form onSubmit={handleSubmit} className="space-y-5">
+                        <div>
+                            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
+                            <input
+                                type="text"
+                                name="name"
+                                id="name"
+                                required
+                                value={formData.name}
+                                onChange={handleChange}
+                                className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-3"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address</label>
+                            <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                required
+                                value={formData.email}
+                                onChange={handleChange}
+                                className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-3"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message / Project Inquiry</label>
+                            <textarea
+                                name="message"
+                                id="message"
+                                rows="4"
+                                required
+                                value={formData.message}
+                                onChange={handleChange}
+                                className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-3"
+                            ></textarea>
+                        </div>
+                        
+                        <button
+                            type="submit"
+                            disabled={status === 'sending'}
+                            className="w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition duration-300 shadow-lg disabled:bg-gray-400"
+                        >
+                            <Icon name="send" size={18} className="mr-2"/> 
+                            {status === 'sending' ? 'Sending...' : 'Send Inquiry'}
+                        </button>
+                    </form>
+
+                    {status === 'success' && (
+                        <div className="mt-6 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 rounded-lg">
+                            <p className="font-semibold">Email Action Initiated!</p>
+                            <p className="text-sm">
+                                Your browser was prompted to open your email client with the pre-filled message. 
+                                If nothing opened (due to browser security), you can manually email me at: 
+                                <a href={`mailto:${PORTFOLIO_DATA.contact.email}`} className="font-mono text-blue-800 ml-1 underline">
+                                    {PORTFOLIO_DATA.contact.email}
+                                </a>
+                            </p>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const CaseStudyPage = ({ setPage }) => (
+            <div className="max-w-4xl mx-auto p-8 bg-white rounded-2xl shadow-2xl border-t-8 border-blue-600">
+                <button 
+                    onClick={() => setPage('home')}
+                    className="flex items-center text-blue-600 hover:text-blue-800 transition duration-150 mb-8 font-semibold"
+                >
+                    <Icon name="corner-left-up" size={20} className="mr-2"/> Back to Portfolio
+                </button>
+
+                <SectionTitle icon={<Icon name="briefcase" />} title="Project Case Studies: Detailed Delivery" />
+                
+                <div className="space-y-10">
+                    {PORTFOLIO_DATA.case_studies.map(study => (
+                        <div key={study.id} className="p-6 border border-gray-200 rounded-xl shadow-md bg-gray-50">
+                            <h3 className="text-2xl font-bold text-blue-800 mb-3">{study.title}</h3>
+                            
+                            <div className="grid sm:grid-cols-3 gap-4 mb-4 text-sm">
+                                <p className="text-gray-700 font-medium">Client Focus: <span className="font-normal block text-gray-500">{study.client_focus}</span></p>
+                                <p className="text-gray-700 font-medium">Budget: <span className="font-normal block text-gray-500">{study.budget}</span></p>
+                                <p className="text-gray-700 font-medium">Duration: <span className="font-normal block text-gray-500">{study.duration}</span></p>
+                            </div>
+
+                            <div className="space-y-4">
+                                <div className="p-3 bg-red-50 border-l-4 border-red-500 rounded-md">
+                                    <h4 className="font-bold text-red-800 mb-1">The Challenge:</h4>
+                                    <p className="text-gray-700">{study.challenge}</p>
+                                </div>
+                                <div className="p-3 bg-yellow-50 border-l-4 border-yellow-500 rounded-md">
+                                    <h4 className="font-bold text-yellow-800 mb-1">The Solution (Methodology):</h4>
+                                    <p className="text-gray-700">{study.solution}</p>
+                                </div>
+                                <div className="p-3 bg-green-50 border-l-4 border-green-500 rounded-md">
+                                    <h4 className="font-bold text-green-800 mb-1">Quantifiable Outcome:</h4>
+                                    <p className="text-gray-700">{study.outcome}</p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+
+
+        // --- MAIN APP COMPONENT (Router) ---
+
+        const App = () => {
+            // State to handle client-side routing: 'home', 'contact', 'casestudies'
+            const [page, setPage] = useState('home'); 
+
+            // Render the appropriate page based on state
+            const renderPage = () => {
+                switch (page) {
+                    case 'contact':
+                        return <ContactPage setPage={setPage} />;
+                    case 'casestudies':
+                        return <CaseStudyPage setPage={setPage} />;
+                    case 'home':
+                    default:
+                        return (
+                            <>
+                                <HeroSection setPage={setPage} />
+                                <HomeContent setPage={setPage} />
+                            </>
+                        );
+                }
+            };
+
+            return (
+                <div className="min-h-screen bg-gray-50 font-sans p-4 sm:p-8">
+                    <div className="max-w-4xl mx-auto">
+                        {renderPage()}
+                        
+                        {page === 'home' && (
+                            <footer className="text-center text-sm text-gray-500 border-t pt-6 mt-10">
+                                <p>&copy; {new Date().getFullYear()} {PORTFOLIO_DATA.name}. Built with React and Tailwind CSS.</p>
+                            </footer>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        // Extracted Home Sections for cleaner main App component
+        const HeroSection = ({ setPage }) => (
+            <header className="text-center bg-white p-8 md:p-10 rounded-3xl shadow-2xl mb-12 border-t-8 border-blue-600">
+                <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-2">{PORTFOLIO_DATA.name}</h1>
+                <p className="text-xl font-medium text-blue-600 mb-4">{PORTFOLIO_DATA.title}</p>
+                <p className="text-gray-600 italic mb-6">
+                    <span className="font-semibold text-gray-700">Location:</span> {PORTFOLIO_DATA.location}
+                </p>
+                <p className="text-gray-700 leading-relaxed max-w-2xl mx-auto border-l-4 border-blue-400 pl-4 py-2 text-md">
+                    {PORTFOLIO_DATA.summary}
+                </p>
+
+                {/* Contact Buttons */}
+                <div className="mt-8 flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+                    <button 
+                        onClick={() => setPage('contact')}
+                        className="flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition duration-300 shadow-lg"
+                    >
+                        <Icon name="mail" size={18} className="mr-2"/> Contact Me
+                    </button>
+                    <a 
+                        href={PORTFOLIO_DATA.contact.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center px-6 py-3 border border-blue-600 text-base font-medium rounded-lg text-blue-600 bg-white hover:bg-blue-50 transition duration-300 shadow-md"
+                    >
+                        <Icon name="linkedin" size={18} className="mr-2"/> View LinkedIn
+                    </a>
+                    <a 
+                        href="/path/to/Purushottam_Shah_Resume.pdf" // NOTE: Update this URL to the path of your hosted PDF resume file.
+                        download="Purushottam_Shah_Resume.pdf"
+                        className="flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-green-600 hover:bg-green-700 transition duration-300 shadow-lg"
+                    >
+                        <Icon name="download" size={18} className="mr-2"/> Download Resume
+                    </a>
+                </div>
+            </header>
+        );
+
+        const HomeContent = ({ setPage }) => (
+            <>
+                {/* PROJECT HIGHLIGHTS */}
+                <section className="mb-12">
+                    <SectionTitle icon={<Icon name="git-branch" />} title="Project Success Highlights" />
+                    <div className="grid md:grid-cols-2 gap-6">
+                        {PORTFOLIO_DATA.highlights.map((item, index) => (
+                            <HighlightCard 
+                                key={index} 
+                                {...item} 
+                                onClick={() => setPage('casestudies')}
+                            />
+                        ))}
+                    </div>
+                    <div className="text-center mt-6">
+                        <button 
+                            onClick={() => setPage('casestudies')}
+                            className="text-blue-600 hover:text-blue-800 font-semibold transition duration-150 flex items-center mx-auto"
+                        >
+                            View All Detailed Case Studies →
+                        </button>
+                    </div>
+                </section>
+
+                {/* SKILLS SECTION */}
+                <section className="mb-12 p-8 bg-white rounded-2xl shadow-xl">
+                    <SectionTitle icon={<Icon name="zap" />} title="Core Skills & Expertise" />
+                    <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
+                        {PORTFOLIO_DATA.skills.map((skill, index) => (
+                            <SkillBar key={index} {...skill} />
+                        ))}
+                    </div>
+                </section>
+
+                {/* PROFESSIONAL EXPERIENCE */}
+                <section className="mb-12">
+                    <SectionTitle icon={<Icon name="briefcase" />} title="Professional Experience" />
+                    <div className="space-y-8">
+                        {PORTFOLIO_DATA.experience.map((exp, index) => (
+                            <ExperienceCard key={index} experience={exp} />
+                        ))}
+                    </div>
+                </section>
+
+                {/* EDUCATION */}
+                <section className="mb-12 p-8 bg-white rounded-2xl shadow-xl">
+                    <SectionTitle icon={<Icon name="graduation-cap" />} title="Education & Certifications" />
+                    <div className="space-y-4">
+                        {PORTFOLIO_DATA.education.map((edu, index) => (
+                            <div key={index} className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-2 border-b last:border-b-0">
+                                <p className="text-md font-semibold text-gray-800">{edu.degree}</p>
+                                <div className="sm:text-right">
+                                    <p className="text-sm text-blue-600 font-medium">{edu.institution}</p>
+                                    <p className="text-xs text-gray-500">{edu.years}</p>
+                                </div>
+                            </div>
+                        ))}
+                        {/* Certifications from PDF */}
+                        <div className="pt-4">
+                            <h4 className="text-lg font-bold text-gray-700 mb-2">Key Certifications</h4>
+                            <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-600">
+                                <li className="px-3 py-1 bg-gray-100 rounded-full border border-gray-300">Registered Electrical and Electronics Engineer</li>
+                                <li className="px-3 py-1 bg-gray-100 rounded-full border border-gray-300">CAME</li>
+                                <li className="px-3 py-1 bg-gray-100 rounded-full border border-gray-300">AMCAT Certified in English Comprehension</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </>
+        );
+
+        // Mount the application to the DOM
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+        // --- END OF REACT APPLICATION ---
+    </script>
+</body>
+</html>
